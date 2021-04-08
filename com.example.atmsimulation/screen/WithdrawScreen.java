@@ -40,6 +40,8 @@ public class WithdrawScreen implements Screen {
                 otherWithdrawScreen.show();
                 break;
             default:
+                transactionScreen.setTrxScreenInvalid(true);
+                transactionScreen.show();
         }
     }
 

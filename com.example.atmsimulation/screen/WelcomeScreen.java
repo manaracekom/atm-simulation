@@ -28,7 +28,7 @@ public class WelcomeScreen implements Screen {
 
             // Validate account number should have 6 digits length
             if (accountNumber.length() > 6) {
-                System.out.println("service.Account Number should have 6 digits length");
+                System.out.println("Account Number should have 6 digits length");
                 welcomeScreenInvalid = true;
                 continue;
             }
@@ -36,7 +36,7 @@ public class WelcomeScreen implements Screen {
             // Validate account number should only contains number[0-9]
             String regex = "[0-9]+";
             if (!accountNumber.matches(regex)) {
-                System.out.println("service.Account Number should only contains numbers");
+                System.out.println("Account Number should only contains numbers");
                 welcomeScreenInvalid = true;
                 continue;
             }
@@ -64,7 +64,7 @@ public class WelcomeScreen implements Screen {
                     .anyMatch(account ->
                             account.getAccountNumber().equals(accountNumber)
                                     && account.getPin().equals(pin))) {
-                System.out.println("Invalid service.Account Number/PIN");
+                System.out.println("Invalid Account Number/PIN");
                 welcomeScreenInvalid = true;
             } else {
                 // set active account
@@ -72,6 +72,7 @@ public class WelcomeScreen implements Screen {
                         account.getAccountNumber().equals(accountNumber)
                                 && account.getPin().equals(pin)).findAny();
                 result.ifPresent(account -> accountService.setActiveAccount(account));
+                welcomeScreenInvalid = false;
             }
         } while (welcomeScreenInvalid);
     }

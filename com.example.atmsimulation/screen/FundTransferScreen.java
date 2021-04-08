@@ -44,7 +44,14 @@ public class FundTransferScreen implements Screen {
                     "press enter to go back to Transaction: ");
 
             in = new Scanner(System.in);
-            transferAmount = in.nextInt();
+            String transferAmountStr = in.nextLine();
+
+            if (transferAmountStr.isEmpty()) {
+                transactionScreen.setTrxScreenInvalid(true);
+                transactionScreen.show();
+            }
+
+            transferAmount = Integer.parseInt(transferAmountStr);
 
             if (transferAmount > 1000) {
                 System.out.println("Maximum amount to withdraw is $1000");
@@ -58,6 +65,8 @@ public class FundTransferScreen implements Screen {
             }
             if (transferAmount > accountService.getActiveAccount().getBalance()) {
                 System.out.println("Insufficient balance $" + transferAmount);
+                transactionScreen.setTrxScreenInvalid(true);
+                transactionScreen.show();
             }
         } catch (InputMismatchException e) {
             System.out.println("Invalid amount");
@@ -75,7 +84,7 @@ public class FundTransferScreen implements Screen {
 
         System.out.println("");
         System.out.println("Transfer Confirmation");
-        System.out.println("Destination service.Account : " + destinationAccount);
+        System.out.println("Destination Account : " + destinationAccount);
         System.out.println("Transfer Amount     : $" + transferAmount);
         System.out.println("Reference Number    : " + referenceNumber);
         System.out.println("");
